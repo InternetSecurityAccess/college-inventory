@@ -1,0 +1,92 @@
+<%- layout('layout') %>
+
+<h2>Список предметов</h2>
+
+<!-- Форма фильтрации -->
+<div class="filter-form-container">
+    <h3>Фильтры</h3>
+    <form action="/" method="GET" id="filterForm">
+        <div class="filter-group">
+            <label for="nameFilter">Название:</label>
+            <input type="text" id="nameFilter" name="nameFilter" value="<%= currentFilters.name %>">
+        </div>
+
+        <div class="filter-group">
+            <label for="locationFilter">Местоположение:</label>
+            <select id="locationFilter" name="locationFilter">
+                <option value="">-- Все местоположения --</option>
+                <% locations.forEach(loc => { %>
+                    <option value="<%= loc.id %>" <%= currentFilters.location == loc.id ? 'selected' : '' %>><%= loc.name %></option>
+                <% }) %>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="itemTypeFilter">Вид предмета:</label>
+            <select id="itemTypeFilter" name="itemTypeFilter">
+                <option value="">-- Все виды предметов --</option>
+                <% itemTypes.forEach(type => { %>
+                    <option value="<%= type.id %>" <%= currentFilters.itemType == type.id ? 'selected' : '' %>><%= type.name %></option>
+                <% }) %>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="statusFilter">Статус:</label>
+            <select id="statusFilter" name="statusFilter">
+                <option value="">-- Все статусы --</option>
+                <option value="В наличии" <%= currentFilters.status === 'В наличии' ? 'selected' : '' %>>В наличии</option>
+                <option value="В ремонте" <%= currentFilters.status === 'В ремонте' ? 'selected' : '' %>>В ремонте</option>
+                <option value="Списан" <%= currentFilters.status === 'Списан' ? 'selected' : '' %>>Списан</option>
+                <option value="На выдаче" <%= currentFilters.status === 'На выдаче' ? 'selected' : '' %>>На выдаче</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="inventoryNumberFilter">Инв. номер:</label>
+            <input type="text" id="inventoryNumberFilter" name="inventoryNumberFilter" value="<%= currentFilters.inventoryNumber %>">
+        </div>
+
+        <button type="submit">Применить фильтры</button>
+        <button type="button" id="resetFiltersBtn">Сбросить фильтры</button>
+    </form>
+</div>
+
+<hr>
+
+<% if (items.length === 0) { %>
+    <p>По вашему запросу ничего не найдено.</p>
+<% } else { %>
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Вид предмета</th>
+                <th>Количество</th>
+                <th>Инвентарный номер</th>
+                <th>Местоположение</th>
+                <th>Статус</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% items.forEach(item => { %>
+                <tr>
+                    <td><a href="/item/<%= item.id %>"><%= item.name %></a></td>
+                    <td><%= item.item_type_name || 'Не указан' %></td>
+                    <td><%= item.quantity %></td>
+                    <td><%= item.inventory_number || '-' %></td>
+                    <td><%= item.location_name || 'Не указано' %></td>
+                    <td><%= item.status %></td>
+                    <td>
+                        <a href="/edit/<%= item.id %>">Редактировать</a>
+                        <form action="/delete/<%= item.id %>" method="POST" style="display: inline;">
+                            <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить этот предмет?');">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+<% } %>
+<script src="/js/index.js"></script>

@@ -1,0 +1,33 @@
+<%- layout('layout') %>
+
+<h2>История перемещений: <%= item.name %></h2>
+
+<% if (movements.length === 0) { %>
+    <p>История перемещений пуста.</p>
+<% } else { %>
+    <table>
+        <thead>
+            <tr>
+                <th>Дата и время</th>
+                <th>Откуда</th>
+                <th>Куда</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% movements.forEach(movement => { %>
+                <tr>
+                    <td><%= new Date(movement.moved_at).toLocaleString() %></td>
+                    <td><%= movement.from_location_name || 'Неизвестно' %></td>
+                    <td><%= movement.location_name %></td>
+                    <td><%= movement.description || '-' %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+<% } %>
+
+<br>
+<a href="/item/<%= item.id %>">К деталям предмета</a>
+<br>
+<a href="/">К списку предметов</a>

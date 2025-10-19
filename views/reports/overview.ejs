@@ -1,0 +1,28 @@
+<%- layout('layout') %>
+
+<h2>Общий отчет по инвентарю</h2>
+
+<!-- Форма фильтрации для общего отчета (с фильтром по дате) -->
+<div class="report-filters">
+    <h3>Фильтры</h3>
+    <form action="/reports/overview" method="GET">
+        <label for="startDate">Период с:</label>
+        <input type="date" id="startDate" name="startDate" value="<%= currentFilters.startDate || '' %>">
+        <label for="endDate">по:</label>
+        <input type="date" id="endDate" name="endDate" value="<%= currentFilters.endDate || '' %>">
+        <button type="submit">Применить</button>
+        <a href="/reports/overview">Сбросить</a>
+    </form>
+</div>
+
+<% if (!reportData) { %>
+    <p>Нет данных для отображения.</p>
+<% } else { %>
+    <div class="overview-report">
+        <p><strong>Всего предметов в инвентаре:</strong> <%= reportData.total_items %></p>
+        <p><strong>В наличии:</strong> <%= reportData.available_items %></p>
+        <p><strong>В ремонте:</strong> <%= reportData.repair_items %></p>
+        <p><strong>Списано:</strong> <%= reportData.written_off_items %></p>
+        <p><strong>На выдаче:</strong> <%= reportData.issued_items %></p>
+    </div>
+<% } %>

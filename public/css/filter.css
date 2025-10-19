@@ -1,0 +1,103 @@
+.filter-form-container {
+    background-color: #f8f9fa;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid #e9ecef; /* Светлая граница */
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Более мягкая тень */
+}
+
+.filter-form-container h3 {
+    margin-top: 0;
+    color: #495057; /* Темный серый цвет */
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 12px;
+    margin-bottom: 25px;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-group label {
+    display: inline-block;
+    width: 160px; /* Увеличиваем ширину label */
+    margin-right: 15px;
+    font-weight: 500; /* Умеренно полужирный шрифт */
+    color: #495057; /* Темный серый цвет */
+    flex-shrink: 0;
+}
+
+.filter-group input[type="text"],
+.filter-group select {
+    flex-grow: 1;
+    width: auto;
+    max-width: calc(100% - 185px); /* Учитываем label */
+    padding: 10px;
+    border: 1px solid #ced4da; /* Светлая граница */
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #495057;
+}
+
+/* Кнопки */
+.filter-form-container button {
+    background-color: #28a745; /* Зеленый цвет */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease-in-out; /* Плавный переход цвета */
+}
+
+.filter-form-container button:hover {
+    background-color: #218838; /* Затемненный зеленый при наведении */
+}
+
+.filter-form-container .clear-filter-btn {
+    background-color: #6c757d; /* Серый цвет */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out; /* Плавный переход цвета */
+}
+
+.filter-form-container .clear-filter-btn:hover {
+    background-color: #5a6268; /* Затемненный серый при наведении */
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #e9ecef; /* Светлый разделитель */
+    margin: 30px 0;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .filter-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-group label {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .filter-group input[type="text"],
+    .filter-group select {
+        width: 100%;
+        max-width: 100%;
+    }
+}

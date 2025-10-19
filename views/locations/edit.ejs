@@ -1,0 +1,17 @@
+<%- layout('layout') %>
+
+<h2>Редактировать местоположение</h2>
+
+<form action="/locations/edit/<%= location.id %>" method="POST">
+    <div>
+        <label for="name">Название:</label>
+        <input type="text" id="name" name="name" value="<%= location.name %>" required>
+    </div>
+    <div>
+        <label for="description">Описание:</label>
+        <textarea id="description" name="description"><%= location.description %></textarea>
+    </div>
+    <button type="submit">Сохранить изменения</button>
+</form>
+
+<br><a href="/locations">Отмена (к списку местоположений)</a>

@@ -1,0 +1,46 @@
+<%- layout('layout') %>
+
+<h2>Отчет по местоположению</h2>
+
+<!-- Форма фильтрации для отчета -->
+<div class="report-filters">
+    <h3>Фильтры</h3>
+    <form action="/reports/by-location" method="GET">
+        <label for="locationId">Местоположение:</label>
+        <select id="locationId" name="locationId" required>
+            <option value="">-- Все местоположения --</option>
+            <% locations.forEach(loc => { %>
+                <option value="<%= loc.id %>" <%= currentFilters.locationId == loc.id ? 'selected' : '' %>><%= loc.name %></option>
+            <% }) %>
+        </select>
+        <button type="submit">Применить</button>
+        <a href="/reports/by-location">Сбросить</a>
+    </form>
+</div>
+
+<% if (!reportData || reportData.length === 0) { %>
+    <p>Нет данных для отображения по заданным критериям.</p>
+<% } else { %>
+    <table>
+        <thead>
+            <tr>
+                <th>Название предмета</th>
+                <th>Инвентарный номер</th>
+                <th>Ответственный</th>
+                <th>Количество</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% reportData.forEach(item => { %>
+                <tr>
+                    <td><%= item.item_name %></td>
+                    <td><%= item.inventory_number || '-' %></td>
+                    <td><%= item.responsible_employee || '-' %></td>
+                    <td><%= item.total_items %></td>
+                    <td><%= item.status %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+<% } %>

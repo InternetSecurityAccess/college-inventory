@@ -1,0 +1,17 @@
+<%- layout('layout') %>
+
+<h2>Редактировать вид предмета</h2>
+
+<form action="/item-types/edit/<%= itemType.id %>" method="POST">
+    <div>
+        <label for="name">Название:</label>
+        <input type="text" id="name" name="name" value="<%= itemType.name %>" required>
+    </div>
+    <div>
+        <label for="description">Описание:</label>
+        <textarea id="description" name="description"><%= itemType.description %></textarea>
+    </div>
+    <button type="submit">Сохранить изменения</button>
+</form>
+
+<br><a href="/item-types">Отмена (к списку видов предметов)</a>

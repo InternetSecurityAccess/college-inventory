@@ -1,0 +1,71 @@
+form div {
+    margin-bottom: 20px; /* Увеличиваем отступ снизу */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px; /* Увеличиваем отступ снизу */
+    font-weight: 500; /* Умеренно полужирный шрифт */
+    color: #495057; /* Темно-серый цвет */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea,
+select {
+    width: calc(100% - 20px);
+    padding: 12px; /* Увеличиваем padding */
+    border: 1px solid #ced4da; /* Более светлая граница */
+    border-radius: 6px; /* Скругляем углы */
+    box-sizing: border-box;
+    font-size: 1rem; /* Увеличиваем размер шрифта */
+    color: #495057; /* Цвет текста */
+    background-color: #fff; /* Белый фон */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Плавные переходы */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Синяя тень при фокусе */
+}
+
+textarea {
+    min-height: 120px; /* Увеличиваем минимальную высоту */
+    resize: vertical;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px; /* Увеличиваем padding */
+    border: none;
+    border-radius: 6px; /* Скругляем углы */
+    cursor: pointer;
+    font-size: 1.1rem; /* Увеличиваем размер шрифта */
+    transition: background-color 0.2s ease-in-out; /* Плавный переход */
+}
+
+button:hover {
+    background-color: #0056b3; /* Более темный оттенок синего при наведении */
+}
+
+/* Дополнительные стили для списков (например, в истории перемещений) */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+li:last-child {
+    border-bottom: none; /* Убираем границу у последнего элемента */
+}
