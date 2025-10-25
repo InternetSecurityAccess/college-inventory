@@ -1,20 +1,25 @@
 {
   "name": "college-inventory",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "description": "Система управления инвентарем колледжа",
+  "main": "app.js",
+"scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "init": "node database/init.js",
+    "demo": "node database/demo-data.js",
+    "reset": "node database/reset-data.js",
+    "fresh": "npm run reset && npm start"
+},
   "dependencies": {
-    "csv-stringify": "^6.6.0",
+    "csv-parser": "^3.2.0",
+    "csv-writer": "^1.6.0",
     "ejs": "^3.1.10",
-    "ejs-mate": "^4.0.0",
     "express": "^5.1.0",
-    "moment": "^2.30.1",
+    "multer": "^2.0.2",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

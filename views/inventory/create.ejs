@@ -1,0 +1,65 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Новая инвентаризация</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/inventory/create">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Название инвентаризации *</label>
+                        <input type="text" class="form-control" id="name" name="name"
+                               placeholder="Например: Инвентаризация января 2024, Плановая проверка"
+                               required>
+                        <div class="form-text">
+                            Укажите понятное название для идентификации инвентаризации
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Описание</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"
+                                  placeholder="Дополнительная информация о целях инвентаризации"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="classroom_id" class="form-label">Аудитория для инвентаризации *</label>
+                        <select class="form-select" id="classroom_id" name="classroom_id" required>
+                            <option value="">Выберите аудиторию</option>
+                            <% classrooms.forEach(classroom => { %>
+                                <option value="<%= classroom.id %>">
+                                    <%= classroom.floor %> этаж - <%= classroom.name %> 
+                                    <% if (classroom.description) { %> (<%= classroom.description %>)<% } %>
+                                </option>
+                            <% }); %>
+                        </select>
+                        <div class="form-text">
+                            Выберите аудиторию, в которой будет проводиться инвентаризация оборудования
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <h6><i class="fas fa-info-circle"></i> Как работает инвентаризация:</h6>
+                        <ul class="mb-0">
+                            <li>Создается список всего оборудования в выбранной аудитории</li>
+                            <li>Вы отмечаете фактическое наличие каждого предмета</li>
+                            <li>Система сравнивает факт с ожидаемым количеством</li>
+                            <li>Формируется отчет о расхождениях</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-clipboard-list"></i> Создать инвентаризацию
+                        </button>
+                        <a href="/inventory" class="btn btn-secondary">Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

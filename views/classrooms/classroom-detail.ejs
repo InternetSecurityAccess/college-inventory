@@ -1,0 +1,243 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+        Статистика: <%= classroom.floor %> этаж - <%= classroom.name %>
+        <% if (classroom.is_service) { %>
+            <span class="badge bg-warning ms-2">Служебный</span>
+        <% } %>
+    </h2>
+    <div>
+        <a href="/classrooms/statistics" class="btn btn-outline-secondary me-2">
+            <i class="fas fa-arrow-left"></i> Назад к статистике
+        </a>
+        <a href="/classrooms" class="btn btn-outline-primary">
+            <i class="fas fa-door-open"></i> Все кабинеты
+        </a>
+    </div>
+</div>
+
+<!-- Общая статистика кабинета -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4><%= totalItems %></h4>
+                        <p class="card-text">Всего единиц</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-boxes fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4><%= totalEquipment %></h4>
+                        <p class="card-text">Позиций оборудования</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-laptop fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4><%= equipmentByType.length %></h4>
+                        <p class="card-text">Типов оборудования</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-tags fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4><%= classroom.floor %></h4>
+                        <p class="card-text">Этаж</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-layer-group fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Оборудование по типам -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Оборудование по типам</h5>
+            </div>
+            <div class="card-body">
+                <% if (equipmentByType.length > 0) { %>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Тип оборудования</th>
+                                    <th>Позиций</th>
+                                    <th>Количество</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% equipmentByType.forEach(item => { %>
+                                    <tr>
+                                        <td>
+                                            <strong><%= item.type_name %></strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-primary"><%= item.equipment_count %></span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success"><%= item.total_quantity %> шт.</span>
+                                        </td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                <% } else { %>
+                    <div class="text-center py-3">
+                        <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
+                        <p class="text-muted">В кабинете нет оборудования</p>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Информация о кабинете</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <td><strong>Название:</strong></td>
+                        <td><%= classroom.name %></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Этаж:</strong></td>
+                        <td><%= classroom.floor %></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Тип:</strong></td>
+                        <td>
+                            <% if (classroom.is_service) { %>
+                                <span class="badge bg-warning">Служебный</span>
+                            <% } else { %>
+                                <span class="badge bg-info">Учебный</span>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Описание:</strong></td>
+                        <td><%= classroom.description || '—' %></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Подробный список оборудования -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Подробный список оборудования</h5>
+    </div>
+    <div class="card-body">
+        <% if (equipmentList.length > 0) { %>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Наименование</th>
+                            <th>Тип</th>
+                            <th>Инв. номер</th>
+                            <th>Кол-во</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% equipmentList.forEach(item => { %>
+                            <tr>
+                                <td>
+                                    <strong><%= item.name %></strong>
+                                    <% if (item.serial_number) { %>
+                                        <br>
+                                        <small class="text-muted">S/N: <%= item.serial_number %></small>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary"><%= item.type_name %></span>
+                                </td>
+                                <td>
+                                    <% if (item.inventory_number) { %>
+                                        <code><%= item.inventory_number %></code>
+                                    <% } else { %>
+                                        <span class="text-muted">—</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <span class="badge <%= item.quantity > 1 ? 'bg-primary' : 'bg-light text-dark' %>">
+                                        <%= item.quantity %> шт.
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge 
+                                        <%= item.status === 'active' ? 'bg-success' : '' %>
+                                        <%= item.status === 'broken' ? 'bg-danger' : '' %>
+                                        <%= item.status === 'repair' ? 'bg-warning text-dark' : '' %>
+                                        <%= item.status === 'written_off' ? 'bg-secondary' : '' %>">
+                                        <%= 
+                                            item.status === 'active' ? 'Активный' :
+                                            item.status === 'broken' ? 'Сломан' :
+                                            item.status === 'repair' ? 'В ремонте' :
+                                            item.status === 'written_off' ? 'Списан' : item.status
+                                        %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="/equipment/edit/<%= item.id %>" 
+                                       class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <div class="text-center py-4">
+                <i class="fas fa-laptop fa-3x text-muted mb-3"></i>
+                <h5>Оборудование не найдено</h5>
+                <p class="text-muted">В этом кабинете нет оборудования</p>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
