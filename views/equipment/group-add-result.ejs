@@ -1,0 +1,51 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Результаты группового добавления</h5>
+            </div>
+            <div class="card-body">
+                <% if (results.success > 0) { %>
+                    <div class="alert alert-success">
+                        <h6><i class="fas fa-check-circle"></i> Успешно добавлено</h6>
+                        <p class="mb-0">Добавлено <strong><%= results.success %></strong> из <strong><%= total %></strong> единиц оборудования</p>
+                    </div>
+                <% } %>
+                
+                <% if (results.errors.length > 0) { %>
+                    <div class="alert alert-warning">
+                        <h6><i class="fas fa-exclamation-triangle"></i> Обнаружены ошибки:</h6>
+                        <ul class="mb-0">
+                            <% results.errors.forEach(error => { %>
+                                <li><%= error %></li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                <% } %>
+                
+                <% if (results.success === 0 && results.errors.length === 0) { %>
+                    <div class="alert alert-danger">
+                        <h6><i class="fas fa-times-circle"></i> Ошибка</h6>
+                        <p class="mb-0">Не удалось добавить ни одной единицы оборудования</p>
+                    </div>
+                <% } %>
+                
+                <div class="d-flex gap-2 mt-3">
+                    <a href="/equipment" class="btn btn-primary">
+                        <i class="fas fa-list"></i> К списку оборудования
+                    </a>
+                    <a href="/equipment/group-add" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> Новое групповое добавление
+                    </a>
+                    <a href="/equipment/add" class="btn btn-outline-info">
+                        <i class="fas fa-plus-circle"></i> Одиночное добавление
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

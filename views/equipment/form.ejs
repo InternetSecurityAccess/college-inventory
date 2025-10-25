@@ -1,0 +1,157 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><%= title %></h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" 
+                      action="<%= equipment ? '/equipment/edit/' + equipment.id : '/equipment/add' %>"
+                      enctype="multipart/form-data">
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Наименование оборудования *</label>
+                        <input type="text" class="form-control" id="name" name="name"
+                               value="<%= equipment ? equipment.name : '' %>" 
+                               placeholder="Например: Компьютер преподавателя, МФУ для студентов и т.д."
+                               required>
+                        <div class="form-text">
+                            Укажите понятное название оборудования для удобства идентификации
+                        </div>
+                    </div>
+                    
+<div class="row">
+    <div class="col-md-6">
+        <div class="mb-3">
+            <label for="type_id" class="form-label">Тип оборудования *</label>
+            <select class="form-select" id="type_id" name="type_id" required>
+                <option value="">Выберите тип</option>
+                <% types.forEach(type => { %>
+                    <option value="<%= type.id %>" 
+                            <%= equipment && equipment.type_id == type.id ? 'selected' : '' %>>
+                        <%= type.name %>
+                    </option>
+                <% }); %>
+            </select>
+        </div>
+    </div>
+        <div class="col-md-6">
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Количество *</label>
+            <input type="number" class="form-control" id="quantity" name="quantity"
+                   value="<%= equipment ? equipment.quantity : '1' %>" 
+                   min="1" max="1000" required>
+            <div class="form-text">
+                Укажите количество единиц данного оборудования
+            </div>
+        </div>
+    </div>
+</div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="classroom_id" class="form-label">Аудитория</label>
+                                <select class="form-select" id="classroom_id" name="classroom_id">
+                                    <option value="">Не назначено</option>
+                                    <% classrooms.forEach(classroom => { %>
+                                        <option value="<%= classroom.id %>" 
+                                                <%= equipment && equipment.classroom_id == classroom.id ? 'selected' : '' %>>
+                                            <%= classroom.floor %> этаж - <%= classroom.name %>
+                                        </option>
+                                    <% }); %>
+                                </select>
+                                <div class="form-text text-muted">
+                                    <small>
+                                        <i class="fas fa-info-circle"></i> 
+                                        Изменение аудитории при редактировании не создает запись в истории перемещений. 
+                                        Для официального перемещения используйте кнопку "Переместить" в списке оборудования.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="inventory_number" class="form-label">Инвентарный номер</label>
+                                <input type="text" class="form-control" id="inventory_number" name="inventory_number"
+                                       value="<%= equipment ? equipment.inventory_number : '' %>"
+                                       placeholder="Например: INV-001, 2024-001">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="serial_number" class="form-label">Серийный номер</label>
+                                <input type="text" class="form-control" id="serial_number" name="serial_number"
+                                       value="<%= equipment ? equipment.serial_number : '' %>"
+                                       placeholder="Например: SN123456789">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Статус</label>
+                                <select class="form-select" id="status" name="status">
+                                    <option value="active" <%= equipment && equipment.status === 'active' ? 'selected' : '' %>>Активный</option>
+                                    <option value="broken" <%= equipment && equipment.status === 'broken' ? 'selected' : '' %>>Сломан</option>
+                                    <option value="repair" <%= equipment && equipment.status === 'repair' ? 'selected' : '' %>>В ремонте</option>
+                                    <option value="written_off" <%= equipment && equipment.status === 'written_off' ? 'selected' : '' %>>Списан</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="purchase_date" class="form-label">Дата покупки</label>
+                                <input type="date" class="form-control" id="purchase_date" name="purchase_date"
+                                       value="<%= equipment ? equipment.purchase_date : '' %>">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="comment" class="form-label">Комментарий</label>
+                        <textarea class="form-control" id="comment" name="comment" rows="3"
+                                  placeholder="Дополнительная информация об оборудовании"><%= equipment ? equipment.comment : '' %></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="photo" class="form-label">Фотография оборудования</label>
+                        <input type="file" class="form-control" id="photo" name="photo" accept="image/*">
+                        
+                        <% if (equipment && equipment.photo_filename) { %>
+                            <div class="mt-2">
+                                <p>Текущее фото:</p>
+                                <img src="/uploads/<%= equipment.photo_filename %>" 
+                                     alt="Фото оборудования" 
+                                     style="max-width: 200px; max-height: 200px;" 
+                                     class="img-thumbnail">
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" id="remove_photo" name="remove_photo" value="1">
+                                    <label class="form-check-label" for="remove_photo">
+                                        Удалить текущее фото
+                                    </label>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> <%= equipment ? 'Обновить' : 'Добавить' %>
+                        </button>
+                        <a href="/equipment" class="btn btn-secondary">Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

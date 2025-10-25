@@ -1,0 +1,120 @@
+<%- include('partials/header') %>
+
+<!-- Статистика -->
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-primary stat-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4><%= equipmentCount %></h4>
+                        <p class="card-text">Единиц оборудования</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-laptop fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+    <div class="card text-white bg-info stat-card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h4><%= classroomCount %></h4>
+                    <p class="card-text">Кабинетов</p>
+                </div>
+                <div class="align-self-center">
+                    <i class="fas fa-door-open fa-2x"></i>
+                </div>
+            </div>
+            <a href="/classrooms/statistics" class="stretched-link text-white text-decoration-none">
+                <small>Посмотреть статистику <i class="fas fa-arrow-right"></i></small>
+            </a>
+        </div>
+    </div>
+</div>
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-success stat-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4><%= classroomCount %></h4>
+                        <p class="card-text">Аудиторий</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-door-open fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-warning stat-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4><%= typeCount %></h4>
+                        <p class="card-text">Типов оборудования</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-tags fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-danger stat-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4><%= unassignedCount %></h4>
+                        <p class="card-text">Не назначено</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-exclamation-triangle fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Быстрые действия -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Быстрые действия</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-2">
+                        <a href="/equipment/add" class="btn btn-primary w-100">
+                            <i class="fas fa-plus"></i> Добавить оборудование
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <a href="/classrooms/add" class="btn btn-success w-100">
+                            <i class="fas fa-plus"></i> Добавить аудиторию
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <a href="/equipment/import" class="btn btn-info w-100">
+                            <i class="fas fa-file-import"></i> Импорт из CSV
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <a href="/equipment/export" class="btn btn-secondary w-100">
+                            <i class="fas fa-file-export"></i> Экспорт в CSV
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
